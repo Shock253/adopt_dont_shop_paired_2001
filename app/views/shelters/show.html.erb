@@ -1,0 +1,18 @@
+<ul class="nav">
+  <li><%= link_to "All Pets", "/pets" %></li>
+  <li><%= link_to "All Shelters", "/shelters" %></li>
+</ul>
+<div class="sheltershow">
+  <h1 class="title"><%= link_to @shelter.name, "/shelters/#{@shelter.id}" %></h1>
+  <ul>
+    <p><%= @shelter.address %></p>
+    <p><%= @shelter.city %></p>
+    <p><%= @shelter.state %></p>
+    <p><%= @shelter.zip %></p>
+  </ul>
+</div>
+<ul class="menu">
+  <li><%= link_to "Shelter Pets", "/shelters/#{@shelter.id}/pets" %></li>
+  <li><%= link_to 'Update Shelter', "/shelters/#{@shelter.id}/edit" %></li>
+  <li><%= link_to 'Delete Shelter', "/shelters/#{@shelter.id}", method: :delete %></li>
+</ul>

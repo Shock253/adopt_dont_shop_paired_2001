@@ -1,0 +1,20 @@
+<ul class="nav">
+  <li><%= link_to "All Pets", "/pets" %></li>
+  <li><%= link_to "All Shelters", "/shelters" %></li>
+</ul>
+<h1 class="title">Animal Shelters</h1>
+
+<ul class="menu">
+  <li><%= link_to "Sort by Alphabetical Order", "/shelters?alpha=true" %></li>
+</ul>
+<% @shelters.each do |shelter| %>
+  <div class="shelter">
+    <h2 class="shelter_link"><%= link_to shelter.name, "/shelters/#{shelter.id}" %></h2>
+    <ul class="menu">
+      <li><%= link_to 'Update Shelter', "/shelters/#{shelter.id}/edit" %></li>
+      <li><%= link_to 'Delete Shelter', "/shelters/#{shelter.id}", method: :delete %></li>
+    </ul>
+  </div>
+<% end %>
+
+<div class="link"><%= link_to "New Shelter", "/shelters/new" %></div>

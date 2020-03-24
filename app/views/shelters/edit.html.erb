@@ -1,0 +1,12 @@
+<ul class="nav">
+  <li><%= link_to "All Pets", "/pets" %></li>
+  <li><%= link_to "All Shelters", "/shelters" %></li>
+</ul>
+<%= form_tag "/shelters/#{@shelter.id}", method: :patch do %>
+<p><%= label_tag :name, "Name:" %> <%= text_field_tag(:name, @shelter.name) %></p>
+<p><%= label_tag :address, "Address:" %> <%= text_field_tag(:address, @shelter.address)%></p>
+<p><%= label_tag :city, "City:"%> <%= text_field_tag(:city, @shelter.city) %></p>
+<p><%= label_tag :state, "State:"%> <%= text_field_tag(:state, @shelter.state) %></p>
+<p><%= label_tag :zip, "Zip:" %> <%= text_field_tag(:zip, @shelter.zip) %></p>
+<%= submit_tag 'Update Shelter' %>
+<% end %>
