@@ -5,6 +5,8 @@ class CreateShelterReviews < ActiveRecord::Migration[5.1]
       t.string :rating
       t.string :content
       t.string :image
+
+      t.timestamps
     end
   end
 end

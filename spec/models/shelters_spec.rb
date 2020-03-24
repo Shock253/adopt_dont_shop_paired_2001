@@ -10,7 +10,8 @@ RSpec.describe Shelter, type: :model do
   end
 
   describe "relationships", type: :model do
-    it { should have_many :pets}
+    it { should have_many :pets }
+    it { should have_many :shelter_reviews }
   end
 
   describe "instance methods", type: :model do

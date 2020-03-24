@@ -16,3 +16,12 @@
   <li><%= link_to 'Update Shelter', "/shelters/#{@shelter.id}/edit" %></li>
   <li><%= link_to 'Delete Shelter', "/shelters/#{@shelter.id}", method: :delete %></li>
 </ul>
+<% @shelter.shelter_reviews.each do |review| %>
+  <section id="review-<%= review.id %>">
+    <h1><%= review.title %></h1>
+    <p><%= review.rating %><%= review.content %></p>
+    <% if !review.nil? %>
+      <img src=<%= review.image %>
+    <% end %>
+  </section>
+<% end %>
