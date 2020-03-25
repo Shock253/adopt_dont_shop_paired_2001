@@ -11,9 +11,13 @@ class ShelterReviewsController < ApplicationController
 
   def create
     shelter = Shelter.find(params[:id])
-
-    shelter.shelter_reviews.create(shelter_review_params)
-    redirect_to "/shelters/#{shelter.id}"
+    review = shelter.shelter_reviews.create(shelter_review_params)
+    if review.save
+        redirect_to "/shelters/#{shelter.id}"
+    else
+      flash[:notice] = "Could not create shelter: Please make sure to enter title, rating, and content"
+      redirect_to "/shelters/#{shelter.id}/reviews/new"
+    end
   end
 
   def update
