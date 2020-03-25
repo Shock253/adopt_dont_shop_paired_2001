@@ -5,7 +5,6 @@ class ShelterReviewsController < ApplicationController
   end
 
   def update
-
     shelter = Shelter.find(params[:id])
     review = ShelterReview.find(params[:review_id])
     review.update(shelter_review_params)
@@ -17,6 +16,11 @@ class ShelterReviewsController < ApplicationController
     end
   end
 
+  def delete
+    shelter = Shelter.find(params[:id])
+    ShelterReview.destroy(params[:review_id])
+    redirect_to "/shelters/#{shelter.id}"
+  end
   private
 
   def shelter_review_params

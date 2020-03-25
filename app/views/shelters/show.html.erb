@@ -21,6 +21,7 @@
     <h1><%= review.title %></h1>
     <p><%= review.rating %><%= review.content %></p>
     <%= link_to "Edit Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %>
+    <%= link_to "Delete Review", "/shelters/#{@shelter.id}/reviews/#{review.id}delete", method: :delete %>
     <% if !review.image.nil? %>
       <img src=<%= review.image %>
     <% end %>
