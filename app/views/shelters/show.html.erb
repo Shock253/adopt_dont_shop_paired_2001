@@ -20,7 +20,8 @@
   <section id="review-<%= review.id %>">
     <h1><%= review.title %></h1>
     <p><%= review.rating %><%= review.content %></p>
-    <% if !review.nil? %>
+    <%= link_to "Edit Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %>
+    <% if !review.image.nil? %>
       <img src=<%= review.image %>
     <% end %>
   </section>

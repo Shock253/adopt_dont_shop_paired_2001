@@ -120,4 +120,22 @@ RSpec.describe "shelter id page", type: :feature do
       expect(page).to have_content(review3.content)
     end
   end
+
+  it "has a link to edit each review next to the review" do
+    shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                               address: "500 Invisible St.",
+                               city: "Denver",
+                               state: "Colorado",
+                               zip: "80201")
+
+    review1 = shelter_1.shelter_reviews.create!(title: "Horrible Shelter",
+                                    rating: "1/5",
+                                    content: "They stole my dog!",
+                                    image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
+     visit("/shelters/#{shelter_1.id}")
+     within("#review-#{review1.id}")
+      expect(page).to have_link("Edit Review")
+      click_link("Edit Review")
+      expect(page).to have_current_path("/shelters/#{shelter_1.id}/reviews/#{review1.id}/edit")
+  end
 end
