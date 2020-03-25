@@ -2,10 +2,18 @@ class ShelterReviewsController < ApplicationController
   def edit
     @shelter =  Shelter.find(params[:id])
     @review = ShelterReview.find(params[:review_id])
+    # => TODO: maybe fix this? we can get the review through the shelter
   end
 
   def new
     @shelter = Shelter.find(params[:id])
+  end
+
+  def create
+    shelter = Shelter.find(params[:id])
+
+    shelter.shelter_reviews.create(shelter_review_params)
+    redirect_to "/shelters/#{shelter.id}"
   end
 
   def update
