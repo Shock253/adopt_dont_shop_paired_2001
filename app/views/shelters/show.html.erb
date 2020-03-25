@@ -16,6 +16,7 @@
   <li><%= link_to 'Update Shelter', "/shelters/#{@shelter.id}/edit" %></li>
   <li><%= link_to 'Delete Shelter', "/shelters/#{@shelter.id}", method: :delete %></li>
 </ul>
+<%= link_to "Post a Review", "/shelters/#{@shelter.id}/reviews/new" %>
 <% @shelter.shelter_reviews.each do |review| %>
   <section id="review-<%= review.id %>">
     <h1><%= review.title %></h1>
