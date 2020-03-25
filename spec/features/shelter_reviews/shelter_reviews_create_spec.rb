@@ -47,18 +47,29 @@ RSpec.describe "Shelter reviews create page" do
     expect(page).to have_content("They stole my dog!")
   end
 
+  it "can not create shelter review without correct values" do
+    shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                               address: "500 Invisible St.",
+                               city: "Denver",
+                               state: "Colorado",
+                               zip: "80201")
+
+    visit "/shelters/#{shelter_1.id}/reviews/new"
+
+    fill_in "title", with: ""
+    fill_in "rating", with: ""
+    fill_in "content", with: ""
+
+    click_button "Post Review"
+
+    expect(page).to have_content("Could not create shelter: Please make sure to enter title, rating, and content")
+    expect(page).to have_current_path("/shelters/#{shelter_1.id}/reviews/new")
+  end
 end
 
-# User Story 3, Shelter Review Creation
+# User Story 4, Shelter Review Creation, cont.
 #
 # As a visitor,
-# When I visit a shelter's show page
-# I see a link to add a new review for this shelter.
-# When I click on this link, I am taken to a new review path
-# On this new page, I see a form where I must enter:
-# - title
-# - rating
-# - content
-# I also see a field where I can enter an optional image (web address)
-# When the form is submitted, I should return to that shelter's show page
-# and I can see my new review
+# When I fail to enter a title, a rating, and/or content in the new shelter review form, but still try to submit the form
+# I see a flash message indicating that I need to fill in a title, rating, and content in order to submit a shelter review
+# And I'm returned to the new form to create a new review
