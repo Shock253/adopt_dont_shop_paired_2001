@@ -5,10 +5,16 @@ class ShelterReviewsController < ApplicationController
   end
 
   def update
+
     shelter = Shelter.find(params[:id])
     review = ShelterReview.find(params[:review_id])
     review.update(shelter_review_params)
-    redirect_to "/shelters/#{shelter.id}"
+    if review.save
+      redirect_to "/shelters/#{shelter.id}"
+    else
+      flash[:notice] = "Update not recorded: Please enter title, rating, and content to edit review."
+      redirect_to "/shelters/#{shelter.id}/reviews/#{review.id}/edit"
+    end
   end
 
   private
