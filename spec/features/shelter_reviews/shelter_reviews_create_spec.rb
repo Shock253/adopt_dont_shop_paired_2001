@@ -24,6 +24,29 @@ RSpec.describe "Shelter reviews create page" do
     expect(page).to have_content("They stole my dog!")
     expect(page).to have_css("img[src*='https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg']")
   end
+
+  it "can create shelter review without image" do
+    shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                               address: "500 Invisible St.",
+                               city: "Denver",
+                               state: "Colorado",
+                               zip: "80201")
+
+    visit "/shelters/#{shelter_1.id}/reviews/new"
+
+    fill_in "title", with: "Horrible Shelter"
+    fill_in "rating", with: "1/5"
+    fill_in "content", with: "They stole my dog!"
+
+    click_button "Post Review"
+
+    expect(page).to have_current_path("/shelters/#{shelter_1.id}")
+
+    expect(page).to have_content("Horrible Shelter")
+    expect(page).to have_content("1/5")
+    expect(page).to have_content("They stole my dog!")
+  end
+
 end
 
 # User Story 3, Shelter Review Creation
