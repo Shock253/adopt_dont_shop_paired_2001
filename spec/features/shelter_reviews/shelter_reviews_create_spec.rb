@@ -19,12 +19,10 @@ RSpec.describe "Shelter reviews create page" do
 
     expect(page).to have_current_path("/shelters/#{shelter_1.id}")
 
-    within ("#review-#{review_1.id}") do
-      expect(page).to have_content("Horrible Shelter")
-      expect(page).to have_content("1/5")
-      expect(page).to have_content("They stole my dog!")
-      expect(page).to have_content("https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
-    end
+    expect(page).to have_content("Horrible Shelter")
+    expect(page).to have_content("1/5")
+    expect(page).to have_content("They stole my dog!")
+    expect(page).to have_css("img[src*='https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg']")
   end
 end
 
