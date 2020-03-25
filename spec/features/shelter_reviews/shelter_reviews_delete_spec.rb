@@ -14,9 +14,9 @@ RSpec.describe "Shelter review delete" do
                                     image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
     visit("/shelters/#{shelter_1.id}")
     within("#review-#{review1.id}")
-    expect(page).to have_link("Delete Review")
-    click_link('Delete Review')
-    expect(page).to have_current_path("/shelters/#{shelter_1.id}")
-    expect(page).to_not have_content("Horrible Shelter")
+      expect(page).to have_link("Delete Review")
+      click_link('Delete Review')
+      expect(page).to have_current_path("/shelters/#{shelter_1.id}")
+      expect(page).to_not have_content("Horrible Shelter")
   end
 end

@@ -1,7 +1,7 @@
 class ShelterReviewsController < ApplicationController
   def edit
     @shelter =  Shelter.find(params[:id])
-    @review = ShelterReview.find(params[:review_id])
+    @review = @shelter.shelter_reviews.find(params[:review_id])
   end
 
   def update
