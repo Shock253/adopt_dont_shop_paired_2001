@@ -4,6 +4,10 @@ class ShelterReviewsController < ApplicationController
     @review = ShelterReview.find(params[:review_id])
   end
 
+  def new
+
+  end
+
   def update
 
     shelter = Shelter.find(params[:id])
