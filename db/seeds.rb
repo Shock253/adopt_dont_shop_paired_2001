@@ -72,3 +72,9 @@ pet_6 = Pet.create(image: 'https://i.etsystatic.com/6800741/r/il/624c21/11910910
                  shelter: shelter_2,
                  description: "He's a Biter!",
                  status: "Adoptable")
+
+
+review1 = shelter_1.shelter_reviews.create!(title: "Horrible Shelter",
+                                  rating: "1/5",
+                                  content: "They stole my dog!",
+                                  image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
