@@ -5,6 +5,10 @@ class FavoritePets
     @contents = initial_contents || []
   end
 
+  def add_pet(pet)
+    @contents << pet
+  end
+
   def total_count
     @contents.length
   end
