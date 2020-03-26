@@ -1,7 +1,3 @@
-<ul class="nav">
-  <li><%= link_to "All Pets", "/pets" %></li>
-  <li><%= link_to "All Shelters", "/shelters" %></li>
-</ul>
 <ul class="menu">
   <% if @pet.status == "Adoptable" %>
     <li><%= link_to 'Change to Adoption Pending', "/pets/#{@pet.id}/pending", method: :patch %></li>
