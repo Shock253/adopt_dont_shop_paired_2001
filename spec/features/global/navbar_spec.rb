@@ -29,7 +29,7 @@ RSpec.describe "As a visitor", type: :feature do
           "/pets/#{@pet_1.id}/edit"
         ]
     end
-    
+
     it "I can link to the shelters index page" do
       @pages.each do |path|
         visit path
@@ -48,23 +48,13 @@ RSpec.describe "As a visitor", type: :feature do
       end
     end
 
-    # it "I see a favorite indicator in my navigation bar" do
-    #
-    #
-    #
-    #   @pages.each do |path|
-    #     visit path
-    #
-    #     expect(page)
-    #
-    #   end
-    # end
+    it "I see a favorite indicator in my navigation bar" do
+      @pages.each do |path|
+        visit path
+        within(".nav") do
+          expect(page).to have_content("Favorite Pets: 0")
+        end
+      end
+    end
   end
 end
-
-# User Story 8, Favorite Indicator
-#
-# As a visitor
-# I see a favorite indicator in my navigation bar
-# The favorite indicator shows a count of pets in my favorites list
-# I can see this favorite indicator from any page in the application
