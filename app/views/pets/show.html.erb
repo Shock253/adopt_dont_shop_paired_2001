@@ -5,7 +5,7 @@
     <li><%= link_to 'Change to Adoptable', "/pets/#{@pet.id}/adoptable", method: :patch %></li>
   <% end %>
 </ul>
-<h1><%= link_to @pet.name, "/pets/#{@pet.id}" %></h1>
+<h1><%= link_to @pet.name, "/pets/#{@pet.id}" %></h1><%= button_to 'Add to Favorites', "/favorites/#{@pet.id}", method: :patch %>
 <ul>
   <li><%= @pet.age %></li>
   <li><%= @pet.sex %></li>

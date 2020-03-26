@@ -30,4 +30,5 @@ Rails.application.routes.draw do
   post '/shelters/:id/pets', to: 'pets#create'
   delete '/pets/:id', to: 'pets#destroy'
 
+  patch '/favorites/:pet_id', to: 'favorites#add'
 end
