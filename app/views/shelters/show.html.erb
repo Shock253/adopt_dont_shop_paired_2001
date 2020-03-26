@@ -23,8 +23,10 @@
     <p><%= review.rating %><%= review.content %></p>
     <%= link_to "Edit Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %>
     <%= link_to "Delete Review", "/shelters/#{@shelter.id}/reviews/#{review.id}delete", method: :delete %>
-    <% if !review.image.nil? %>
-      <img src=<%= review.image %>
+    <% binding.pry %>
+    <% if !review.image.nil? && !(review.image == "") %>
+      <% binding.pry %>
+      <img src="<%= review.image %>" alt="<%= review.title %>" />
     <% end %>
   </section>
 <% end %>
