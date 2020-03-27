@@ -26,7 +26,8 @@ RSpec.describe "As a visitor", type: :feature do
           "/shelters/#{@shelter_1.id}/pets/new",
           "/pets",
           "/pets/#{@pet_1.id}",
-          "/pets/#{@pet_1.id}/edit"
+          "/pets/#{@pet_1.id}/edit",
+          "/favorites"
         ]
     end
 

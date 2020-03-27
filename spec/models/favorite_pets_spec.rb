@@ -32,4 +32,38 @@ RSpec.describe FavoritePets, type: :model do
       expect(favorite_pets.total_count).to eq(2)
     end
   end
+
+  describe "#add_pet" do
+    it "can add pets" do
+      shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                                address: "500 Invisible St.",
+                                city: "Denver",
+                                state: "Colorado",
+                                zip: "80201")
+
+      pet_1 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                      name: 'Rover',
+                      age: 3,
+                      sex: "Male",
+                      shelter: shelter_1,
+                      description: "He's a biter.",
+                      status: "Pending")
+
+      pet_2 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                      name: 'Sam',
+                      age: 3,
+                      sex: "Male",
+                      shelter: shelter_1,
+                      description: "He's a biter.",
+                      status: "Adoptable")
+
+      pet_id = "7888"
+      favorite_pets = FavoritePets.new([
+          pet_1.id,
+          pet_2.id
+        ])
+        favorite_pets.add_pet(pet_id)
+        expect(favorite_pets.total_count).to eq(3)
+    end
+  end
 end
