@@ -94,4 +94,27 @@ RSpec.describe "Favorites index page" do
     expect(page).to have_content("No pets are currently favorited!")
     expect(page).to have_content("Favorite Pets: 0")
   end
+
+  it "has a link to application" do
+    shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                              address: "500 Invisible St.",
+                              city: "Denver",
+                              state: "Colorado",
+                              zip: "80201")
+
+    pet_1 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                    name: 'Rover',
+                    age: 3,
+                    sex: "Male",
+                    shelter: shelter_1,
+                    description: "He's a biter.",
+                    status: "Pending")
+
+    visit "/pets/#{pet_1.id}"
+    click_button('Add to Favorites')
+    visit "/favorites"
+    expect(page).to have_link("Apply to Adopt")
+    click_link("Apply to Adopt")
+    expect(page).to have_current_path("/applications/new")
+  end
 end
