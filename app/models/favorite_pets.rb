@@ -16,4 +16,8 @@ class FavoritePets
   def remove_pet(pet)
     @contents.delete(pet)
   end
+
+  def remove_all_pets
+    @contents = []
+  end
 end
