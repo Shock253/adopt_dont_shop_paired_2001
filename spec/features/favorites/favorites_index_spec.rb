@@ -48,4 +48,9 @@ RSpec.describe "Favorites index page" do
       expect(page).to have_link("Rover")
     end
   end
+
+  it "will display no pets message when there are no favorited pets" do
+    visit "/favorites"
+    expect(page).to have_content("No pets are currently favorited!")
+  end
 end
