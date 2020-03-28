@@ -57,5 +57,23 @@ RSpec.describe "As a visitor", type: :feature do
         end
       end
     end
+
+    it "and I can click on the favoite indicator,
+    I am taken to the favorites index page" do
+      @pages.each do |path|
+        visit path
+        within(".nav") do
+          click_link "Favorite Pets: 0"
+          expect(page).to have_current_path("/favorites")
+        end
+      end
+    end
   end
 end
+
+
+# User Story 11, Favorite Indicator links to Index Page
+#
+# As a visitor
+# When I click on the favorite indicator in the nav bar
+# I am taken to the favorites index page
