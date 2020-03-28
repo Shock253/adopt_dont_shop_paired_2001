@@ -5,7 +5,13 @@
     <li><%= link_to 'Change to Adoptable', "/pets/#{@pet.id}/adoptable", method: :patch %></li>
   <% end %>
 </ul>
-<h1><%= link_to @pet.name, "/pets/#{@pet.id}" %></h1><%= button_to 'Add to Favorites', "/favorites/#{@pet.id}", method: :patch %>
+<h1><%= link_to @pet.name, "/pets/#{@pet.id}" %></h1>
+
+<% if !favorite_pets.favorited?(@pet.id) %>
+  <%= button_to 'Add to Favorites', "/favorites/#{@pet.id}", method: :patch %>
+<% else %>
+  <%= button_to 'Remove from Favorites', "/favorites/#{@pet.id}", method: :delete %>
+<% end %>
 <ul>
   <li><%= @pet.age %></li>
   <li><%= @pet.sex %></li>
