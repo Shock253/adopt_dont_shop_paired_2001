@@ -66,4 +66,29 @@ RSpec.describe FavoritePets, type: :model do
         expect(favorite_pets.total_count).to eq(3)
     end
   end
+
+  describe "#favorited?" do
+    it "find if favorited" do
+      shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                                address: "500 Invisible St.",
+                                city: "Denver",
+                                state: "Colorado",
+                                zip: "80201")
+
+
+      pet_1 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                      name: 'Rover',
+                      age: 3,
+                      sex: "Male",
+                      shelter: shelter_1,
+                      description: "He's a biter.",
+                      status: "Pending Adoption")
+
+      favorite_pets = FavoritePets.new([
+        pet_1.id
+      ])
+
+      expect(favorite_pets.favorited?(pet_1.id)).to eq(true)
+    end
+  end
 end
