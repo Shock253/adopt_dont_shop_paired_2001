@@ -5,10 +5,15 @@ class ApplicationPetsController < ApplicationController
 
   def create
     application = Application.create(application_params)
-    params[:pet_ids].each { |pet_id| favorite_pets.remove_pet(pet_id) }
-    session[:favorites] = favorite_pets.contents
-    redirect_to "/favorites"
-    flash[:notice] = "Application successfully submitted!"
+    if application.save
+      params[:pet_ids].each { |pet_id| favorite_pets.remove_pet(pet_id) }
+      session[:favorites] = favorite_pets.contents
+      redirect_to "/favorites"
+      flash[:notice] = "Application successfully submitted!"
+    else
+      flash[:notice] = "Required fields are missing! Please make sure to include all of the information listed in the application."
+      redirect_to "/applications/new"
+    end
   end
 
   private
