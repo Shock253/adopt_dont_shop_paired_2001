@@ -12,4 +12,8 @@ class FavoritePets
   def total_count
     @contents.length
   end
+
+  def favorited?(pet_id)
+    @contents.include?(pet_id)
+  end
 end
