@@ -56,4 +56,24 @@ RSpec.describe "New Application form" do
     expect(page).to_not have_content("George")
     expect(page).to have_content("Favorite Pets: 0")
   end
+
+  it "displays flash message that the required fields are missing" do
+    visit "/applications/new"
+
+    within("#pet-#{@pet_1.id}") do
+      check "pet_ids_"
+    end
+
+    fill_in "name", with: ""
+    fill_in "address", with: "450 S. Cherry St."
+    fill_in "city", with: "Aldoran"
+    fill_in "state", with: "CO"
+    fill_in "zip", with: "19999"
+    fill_in "phone_number", with: "8007891234"
+    fill_in "description", with: "I have a big yard"
+    click_button "Submit Application"
+
+    expect(page).to have_current_path("/applications/new")
+    expect(page).to have_content("Required fields are missing! Please make sure to include all of the information listed in the application.")
+  end
 end
