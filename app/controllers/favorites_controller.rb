@@ -16,4 +16,10 @@ class FavoritesController < ApplicationController
     session[:favorites] = favorite_pets.contents
     redirect_to "/favorites"
   end
+
+  def delete_all
+    favorite_pets.remove_all_pets
+    session[:favorites] = favorite_pets.contents
+    redirect_to "/favorites"
+  end
 end

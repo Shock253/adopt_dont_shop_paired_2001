@@ -2,6 +2,7 @@
 <% if @pets == [] %>
   <h1>No pets are currently favorited!</h1>
 <% else %>
+<h2><%= link_to 'Remove All Favorites', "/favorites", method: :delete %></h2>
   <% @pets.each do |pet| %>
     <section id="pet-<%= pet.id %>">
       <div class="gallery">
