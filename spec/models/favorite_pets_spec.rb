@@ -92,8 +92,8 @@ RSpec.describe FavoritePets, type: :model do
                       status: "Adoptable")
 
       favorite_pets = FavoritePets.new([
-          pet_1.id.to_s,
-          pet_2.id.to_s
+          pet_1.id,
+          pet_2.id
         ])
       favorite_pets.remove_pet(pet_1.id)
       expect(favorite_pets.total_count).to eq(1)
