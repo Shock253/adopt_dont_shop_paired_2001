@@ -59,11 +59,11 @@ RSpec.describe FavoritePets, type: :model do
 
       pet_id = "7888"
       favorite_pets = FavoritePets.new([
-          pet_1.id,
-          pet_2.id
+          pet_1.id.to_s,
+          pet_2.id.to_s
         ])
-        favorite_pets.add_pet(pet_id)
-        expect(favorite_pets.total_count).to eq(3)
+      favorite_pets.add_pet(pet_id)
+      expect(favorite_pets.total_count).to eq(3)
     end
   end
 
@@ -92,8 +92,8 @@ RSpec.describe FavoritePets, type: :model do
                       status: "Adoptable")
 
       favorite_pets = FavoritePets.new([
-          pet_1.id,
-          pet_2.id
+          pet_1.id.to_s,
+          pet_2.id.to_s
         ])
       favorite_pets.remove_pet(pet_1.id)
       expect(favorite_pets.total_count).to eq(1)
@@ -118,7 +118,7 @@ RSpec.describe FavoritePets, type: :model do
                       status: "Pending Adoption")
 
       favorite_pets = FavoritePets.new([
-        pet_1.id
+        pet_1.id.to_s
       ])
 
       expect(favorite_pets.favorited?(pet_1.id)).to eq(true)
