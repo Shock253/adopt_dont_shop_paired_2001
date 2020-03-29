@@ -52,8 +52,11 @@ RSpec.describe "New Application form" do
     click_button "Submit Application"
     expect(page).to have_current_path("/favorites")
     expect(page).to have_content("Application successfully submitted!")
-    expect(page).to_not have_content("Rover")
-    expect(page).to_not have_content("George")
+
+    within("#pets-with-applications") do
+      expect(page).to have_content("Rover")
+      expect(page).to have_content("George")
+    end
     expect(page).to have_content("Favorite Pets: 0")
   end
 
