@@ -6,6 +6,9 @@ class ApplicationPetsController < ApplicationController
   def create
     application = Application.create(application_params)
     if application.save
+      params[:pet_ids].each do |id|
+        application.application_pets.create(pet_id: id)
+      end
       params[:pet_ids].each { |pet_id| favorite_pets.remove_pet(pet_id) }
       session[:favorites] = favorite_pets.contents
       redirect_to "/favorites"
