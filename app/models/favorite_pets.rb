@@ -9,10 +9,25 @@ class FavoritePets
     @contents << pet
   end
 
+  def remove_pet(pet)
+    @contents.delete(pet.to_s)
+  end
+
   def total_count
     @contents.length
   end
 
+  def favorited?(pet_id)
+    @contents.include?(pet_id.to_s)
+    
+  def remove_pet(pet)
+    @contents.delete(pet)
+  end
+
+  def remove_all_pets
+    @contents = []
+  end
+  
   def remove_pet(pet)
     @contents.delete(pet)
   end
