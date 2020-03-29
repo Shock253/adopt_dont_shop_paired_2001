@@ -9,6 +9,8 @@ class FavoritesController < ApplicationController
 
   def index
     @pets = Pet.find(favorite_pets.contents)
+    pet_ids = ApplicationPet.pluck(:pet_id)
+    @pending_pets = Pet.find(pet_ids)
   end
 
   def delete
