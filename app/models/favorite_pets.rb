@@ -10,7 +10,7 @@ class FavoritePets
   end
 
   def remove_pet(pet)
-    @contents.delete(pet)
+    @contents.delete(pet.to_s)
   end
 
   def total_count
@@ -18,6 +18,6 @@ class FavoritePets
   end
 
   def favorited?(pet_id)
-    @contents.include?(pet_id)
+    @contents.include?(pet_id.to_s)
   end
 end
