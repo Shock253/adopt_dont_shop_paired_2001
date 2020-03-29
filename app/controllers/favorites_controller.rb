@@ -17,4 +17,16 @@ class FavoritesController < ApplicationController
   def index
     @pets = Pet.find(favorite_pets.contents)
   end
+
+  def delete
+    favorite_pets.remove_pet(params[:pet_id])
+    session[:favorites] = favorite_pets.contents
+    redirect_to "/favorites"
+  end
+
+  def delete_all
+    favorite_pets.remove_all_pets
+    session[:favorites] = favorite_pets.contents
+    redirect_to "/favorites"
+  end
 end
