@@ -21,9 +21,10 @@
       </div>
     </section>
   <% end%>
-  <section id="pets-with-applications">
-    <h1>Pets You Applied For</h1>
-    <% @pending_pets.each do |pet| %>
-      <%= link_to pet.name, "/pets/#{pet.id}" %>
-    <% end %>
 <% end %>
+<section id="pets-with-applications">
+  <h1>Pets You Applied For</h1>
+  <% @pending_pets.each do |pet| %>
+    <%= link_to pet.name, "/pets/#{pet.id}" %>
+  <% end %>
+  </section>
