@@ -17,11 +17,6 @@ class ApplicationPetsController < ApplicationController
       flash[:notice] = "Required fields are missing! Please make sure to include all of the information listed in the application."
       redirect_to "/applications/new"
     end
-
-    def index
-      @pet = Pet.find(params[:pet_id])
-      @applications = @pet.applications
-    end
   end
 
   private
