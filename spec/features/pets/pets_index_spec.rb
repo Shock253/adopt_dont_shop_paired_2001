@@ -39,9 +39,11 @@ RSpec.describe "pets index page", type: :feature do
                      status: "Adoptable")
 
     visit "/pets"
-    expect(page).to have_link('Update Pet')
-    click_link('Update Pet')
-    expect(page).to have_current_path("/pets/#{pet.id}/edit")
+    within "#pet-#{pet.id}" do
+      expect(page).to have_link('Update Pet')
+      click_link('Update Pet')
+      expect(page).to have_current_path("/pets/#{pet.id}/edit")
+    end
   end
 
   it "has a link to delete each pet" do
@@ -59,8 +61,10 @@ RSpec.describe "pets index page", type: :feature do
                      description: "Good dog, very active",
                      status: "Adoptable")
     visit "/pets"
-    expect(page).to have_link('Delete Pet')
-    click_link('Delete Pet')
+    within "#pet-#{pet.id}" do
+      expect(page).to have_link('Delete Pet')
+      click_link('Delete Pet')
+    end
     expect(page).to have_current_path('/pets')
     expect(page).to_not have_content("Rover")
   end

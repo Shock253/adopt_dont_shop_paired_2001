@@ -174,8 +174,10 @@ RSpec.describe "Favorites index page" do
 
     within("#pets-with-applications") do
       expect(page).to have_content("Pets You Applied For")
-      expect(page).to have_link(pet_1.name)
-      click_link(pet_1.name)
+      within("#pet-#{pet_1.id}") do
+        expect(page).to have_link(pet_1.name)
+        click_link(pet_1.name)
+      end
     end
 
     expect(page).to have_current_path("/pets/#{pet_1.id}")

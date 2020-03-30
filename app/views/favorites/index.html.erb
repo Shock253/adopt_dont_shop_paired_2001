@@ -25,6 +25,8 @@
 <section id="pets-with-applications">
   <h1>Pets You Applied For</h1>
   <% @pending_pets.each do |pet| %>
+    <section id="pet-<%= pet.id %>">
     <%= link_to pet.name, "/pets/#{pet.id}" %>
+    </section>
   <% end %>
 </section>
