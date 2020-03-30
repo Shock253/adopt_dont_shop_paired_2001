@@ -25,7 +25,10 @@ class ApplicationPetsController < ApplicationController
 
   def approve
     pet = Pet.find(params[:pet_id])
-    pet.status = "pending"
+    pet.status = "Pending"
+    application_pet = pet.find_application_pet(params[:application_id])
+    application_pet.status = "Approved"
+    application_pet.save
     pet.save
     redirect_to "/pets/#{params[:pet_id]}"
   end
