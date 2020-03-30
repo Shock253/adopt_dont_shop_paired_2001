@@ -74,7 +74,7 @@ RSpec.describe "Application show page" do
 
     expect(page).to have_current_path("/pets/#{@pet_1.id}")
 
-    expect(page).to have_content("pending")
+    expect(page).to have_content("Pending")
     expect(page).to have_content("John Wick")
   end
 end
