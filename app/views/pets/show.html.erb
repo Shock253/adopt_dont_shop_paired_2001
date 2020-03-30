@@ -18,6 +18,7 @@
   <li><%= @pet.description %></li>
   <li><%= @pet.status %></li>
 </ul>
+<%= link_to 'View All Applications for This Pet', "/applications/#{@pet.id}" %>
 <p><img src=<%= @pet.image %> /></p>
 
 <ul class="menu">

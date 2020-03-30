@@ -1,0 +1,10 @@
+<h1>Applicants for <%= @pet.name %></h1>
+<% if @applications == [] %>
+  <h1><%= @pet.name %> currently has no applications to adopt them!</h1>
+<% else %>
+  <ul>
+    <% @applications.each do |application| %>
+    <li><%= application.name %></li>
+    <% end %>
+  </ul>
+<% end %>
