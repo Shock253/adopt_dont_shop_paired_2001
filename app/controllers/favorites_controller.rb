@@ -11,17 +11,11 @@ class FavoritesController < ApplicationController
     favorite_pets.remove_pet(params[:pet_id])
     session[:favorites] = favorite_pets.contents
     flash[:notice] = "Pet successfully removed from Favorites!"
-    redirect_to "/pets/#{params[:pet_id]}"
+    redirect_back fallback_location: "/pets"
   end
 
   def index
     @pets = Pet.find(favorite_pets.contents)
-  end
-
-  def delete
-    favorite_pets.remove_pet(params[:pet_id])
-    session[:favorites] = favorite_pets.contents
-    redirect_to "/favorites"
   end
 
   def delete_all
