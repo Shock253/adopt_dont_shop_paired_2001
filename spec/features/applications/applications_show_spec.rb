@@ -51,25 +51,40 @@ RSpec.describe "Application show page" do
     expect(page).to have_content("8007891234")
     expect(page).to have_content("I have a big yard")
 
-    click_link "Rover"
-    expect(page).to have_current_path("/pets/#{@pet_1.id}")
+    within "#pet-#{@pet_1.id}" do
+      click_link "Rover"
+      expect(page).to have_current_path("/pets/#{@pet_1.id}")
+    end
     visit "/applications/#{@application.id}"
 
-    click_link "George"
-    expect(page).to have_current_path("/pets/#{@pet_2.id}")
+    within "#pet-#{@pet_2.id}" do
+      click_link "George"
+      expect(page).to have_current_path("/pets/#{@pet_2.id}")
+    end
     visit "/applications/#{@application.id}"
 
   end
+
+  it "can approve pet applications" do
+    visit "/applications/#{@application.id}"
+
+    within "pet-#{@pet_1.id}" do
+      click_link "Approve"
+    end
+
+    expect(page).to have_current_path("/pets/#{@pet_1.id}")
+
+    expect(page).to have_content("pending")
+    expect(page).to have_content("John Wick")
+  end
 end
 
+# User Story 22, Approving an Application
+#
 # As a visitor
-# When I visit an applications show page "/applications/:id"
-# I can see the following:
-# - name
-# - address
-# - city
-# - state
-# - zip
-# - phone number
-# - Description of why the applicant says they'd be a good home for this pet(s)
-# - names of all pet's that this application is for (all names of pets should be links to their show page)
+# When I visit an application's show page
+# For every pet that the application is for, I see a link to approve the application for that specific pet
+# When I click on a link to approve the application for one particular pet
+# I'm taken back to that pet's show page
+# And I see that the pets status has changed to 'pending'
+# And I see text on the page that says who this pet is on hold for (Ex: "On hold for John Smith", given John Smith is the name on the application that was just accepted)
