@@ -68,7 +68,7 @@ RSpec.describe "Application show page" do
   it "can approve pet applications" do
     visit "/applications/#{@application.id}"
 
-    within "pet-#{@pet_1.id}" do
+    within "#pet-#{@pet_1.id}" do
       click_link "Approve"
     end
 
