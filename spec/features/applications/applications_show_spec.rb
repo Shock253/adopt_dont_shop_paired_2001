@@ -16,7 +16,7 @@ RSpec.describe "Application show page" do
                     sex: "Male",
                     shelter: @shelter_1,
                     description: "He's a biter.",
-                    status: "Pending")
+                    status: "adoptable")
 
     @pet_2 = Pet.create(image: 'app/assets/images/border_collie.jpg',
                     name: 'George',
@@ -24,7 +24,7 @@ RSpec.describe "Application show page" do
                     sex: "Male",
                     shelter: @shelter_1,
                     description: "He's a biter.",
-                    status: "Pending")
+                    status: "adoptable")
 
     @application = Application.create(
                     name: "John Wick",
