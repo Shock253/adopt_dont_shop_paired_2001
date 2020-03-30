@@ -26,7 +26,7 @@ RSpec.describe "Application show page" do
                     description: "He's a biter.",
                     status: "Pending")
 
-    @application = @pet_1.applications.create(
+    @application = Application.create(
                     name: "John Wick",
                     address: "450 S. Cherry St.",
                     city: "Aldoran",
@@ -34,6 +34,10 @@ RSpec.describe "Application show page" do
                     zip: "19999",
                     phone_number: "8007891234",
                     description: "I have a big yard")
+
+    ApplicationPet.create(application: @application, pet: @pet_1)
+    ApplicationPet.create(application: @application, pet: @pet_2)
+
   end
 
   it "has application info displayed" do
@@ -46,6 +50,14 @@ RSpec.describe "Application show page" do
     expect(page).to have_content("19999")
     expect(page).to have_content("8007891234")
     expect(page).to have_content("I have a big yard")
+
+    click_link "Rover"
+    expect(page).to have_current_path("/pets/#{@pet_1.id}")
+    visit "/applications/#{@application.id}"
+
+    click_link "George"
+    expect(page).to have_current_path("/pets/#{@pet_2.id}")
+    visit "/applications/#{@application.id}"
 
   end
 end
