@@ -19,7 +19,8 @@ class FavoritePets
 
   def favorited?(pet_id)
     @contents.include?(pet_id.to_s)
-    
+  end
+
   def remove_pet(pet)
     @contents.delete(pet)
   end
@@ -27,7 +28,7 @@ class FavoritePets
   def remove_all_pets
     @contents = []
   end
-  
+
   def remove_pet(pet)
     @contents.delete(pet)
   end
