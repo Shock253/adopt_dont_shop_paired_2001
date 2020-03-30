@@ -4,7 +4,7 @@
 <% else %>
   <ul>
     <% @applications.each do |application| %>
-    <li><%= application.name %></li>
+    <li><%= link_to application.name, "/applications/#{application.id}"%></li>
     <% end %>
   </ul>
 <% end %>
