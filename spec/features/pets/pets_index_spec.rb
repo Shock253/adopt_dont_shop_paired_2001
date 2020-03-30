@@ -65,44 +65,6 @@ RSpec.describe "pets index page", type: :feature do
     expect(page).to_not have_content("Rover")
   end
 
-  it "has a link to each pet's shelter" do
-    shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
-                               address: "500 Invisible St.",
-                               city: "Denver",
-                               state: "Colorado",
-                               zip: "80201")
-
-    pet = Pet.create!(image: 'https://image.shutterstock.com/z/stock-photo-attentive-border-collie-dog-lying-down-on-the-grass-on-a-sunny-d-593634296.jpg',
-                     name: 'Rover',
-                     age: 3,
-                     sex: "Male",
-                     shelter: shelter_1,
-                     description: "Good dog, very active",
-                     status: "Adoptable")
-    visit "/pets"
-    expect(page).to have_link("#{shelter_1.name}")
-  end
-
-  it "can link to each pet's show page" do
-    shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
-                               address: "500 Invisible St.",
-                               city: "Denver",
-                               state: "Colorado",
-                               zip: "80201")
-
-    pet = Pet.create!(image: 'https://image.shutterstock.com/z/stock-photo-attentive-border-collie-dog-lying-down-on-the-grass-on-a-sunny-d-593634296.jpg',
-                     name: 'Rover',
-                     age: 3,
-                     sex: "Male",
-                     shelter: shelter_1,
-                     description: "Good dog, very active",
-                     status: "Adoptable")
-    visit "/pets"
-    expect(page).to have_link("#{pet.name}")
-    click_link("#{pet.name}")
-    expect(page).to have_current_path("/pets/#{pet.id}")
-  end
-
   it "can sort pets by adoption status" do
     shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
                               address: "500 Invisible St.",

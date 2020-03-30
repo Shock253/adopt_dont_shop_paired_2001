@@ -43,44 +43,4 @@ RSpec.describe "pets create page", type: :feature do
     expect(page).to have_content("Adoptable")
     expect(page).to have_css("img[src*='https://media1.fdncms.com/sevendaysvt/imager/u/blog/28218452/animalissue2-1-43f2a278bdb53e2e.jpg?cb=1565792097']")
   end
-
-  it "has a link to the pet index" do
-    shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
-                               address: "500 Invisible St.",
-                               city: "Denver",
-                               state: "Colorado",
-                               zip: "80201")
-
-    pet_1 = Pet.create(image: 'app/assets/images/border_collie.jpg',
-                    name: 'Rover',
-                    age: 3,
-                    sex: "Male",
-                    shelter: shelter_1,
-                    description: "He's a biter.",
-                    status: "Pending")
-    visit ("/shelters/#{shelter_1.id}/pets/new")
-    expect(page).to have_link("All Pets")
-    click_link("All Pets")
-    expect(page).to have_current_path("/pets")
-  end
-
-  it "has a link to the shelters index" do
-    shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
-                               address: "500 Invisible St.",
-                               city: "Denver",
-                               state: "Colorado",
-                               zip: "80201")
-
-    pet_1 = Pet.create(image: 'app/assets/images/border_collie.jpg',
-                    name: 'Rover',
-                    age: 3,
-                    sex: "Male",
-                    shelter: shelter_1,
-                    description: "He's a biter.",
-                    status: "Pending")
-    visit ("/shelters/#{shelter_1.id}/pets/new")
-    expect(page).to have_link("All Shelters")
-    click_link("All Shelters")
-    expect(page).to have_current_path("/shelters")
-  end
 end

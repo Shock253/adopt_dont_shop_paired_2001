@@ -23,28 +23,4 @@ RSpec.describe "shelter update functionality" do
     expect(page).to have_content("Colorado")
     expect(page).to have_content("90000")
   end
-
-  it "can link to pets index page" do
-    shelter_1 = Shelter.create(name: "Denver Animal Shelter",
-                               address: "500 Invisible St.",
-                               city: "Denver",
-                               state: "Colorado",
-                               zip: "80201")
-    visit "/shelters/#{shelter_1.id}/edit"
-    expect(page).to have_link("All Pets")
-    click_link("All Pets")
-    expect(page).to have_current_path("/pets")
-  end
-
-  it "can link to shelters index page" do
-    shelter_1 = Shelter.create(name: "Denver Animal Shelter",
-                               address: "500 Invisible St.",
-                               city: "Denver",
-                               state: "Colorado",
-                               zip: "80201")
-    visit "/shelters/#{shelter_1.id}/edit"
-    expect(page).to have_link("All Shelters")
-    click_link("All Shelters")
-    expect(page).to have_current_path("/shelters")
-  end
 end

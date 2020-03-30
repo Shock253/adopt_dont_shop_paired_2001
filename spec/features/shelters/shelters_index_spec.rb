@@ -80,20 +80,6 @@ RSpec.describe "shelters index page", type: :feature do
     expect(page).to_not have_content("Denver Animal Shelter")
   end
 
-  it "can link to pets index page" do
-    visit "/shelters"
-    expect(page).to have_link("All Pets")
-    click_link("All Pets")
-    expect(page).to have_current_path("/pets")
-  end
-
-  it "can link to itself" do
-    visit "/shelters"
-    expect(page).to have_link("All Shelters")
-    click_link("All Shelters")
-    expect(page).to have_current_path("/shelters")
-  end
-
   it "has a link to re-order shelters alphabetically" do
     shelter_1 = Shelter.create(name: "Denver Animal Shelter",
                          address: "500 Invisible St.",
