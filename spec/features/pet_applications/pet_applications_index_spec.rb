@@ -61,7 +61,7 @@ RSpec.describe "Pet applications index page" do
   it "displays a list of all applicants for that pet" do
     visit "/pets/#{@pet_1.id}"
     click_link('View All Applications for This Pet')
-    expect(page).to have_current_path("/applications/#{@pet_1.id}")
+    expect(page).to have_current_path("/pets/#{@pet_1.id}/applications")
     expect(page).to have_content("John Wick")
     expect(page).to have_content("Luke Skywalker") #need to be links
   end
@@ -69,7 +69,7 @@ RSpec.describe "Pet applications index page" do
   it "displays a no applications for this pet message" do
     visit "/pets/#{@pet_2.id}"
     click_link('View All Applications for This Pet')
-    expect(page).to have_current_path("/applications/#{@pet_2.id}")
+    expect(page).to have_current_path("/pets/#{@pet_2.id}/applications")
     expect(page).to have_content("#{@pet_2.name} currently has no applications to adopt them!")
   end
 end

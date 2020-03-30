@@ -195,6 +195,6 @@ RSpec.describe "pet show page", type: :feature do
     visit "/pets/#{pet_1.id}"
     expect(page).to have_link('View All Applications for This Pet')
     click_link('View All Applications for This Pet')
-    expect(page).to have_current_path("/applications/#{pet_1.id}")
+    expect(page).to have_current_path("/pets/#{pet_1.id}/applications")
   end
 end
