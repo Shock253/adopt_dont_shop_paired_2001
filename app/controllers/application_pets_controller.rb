@@ -23,6 +23,13 @@ class ApplicationPetsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
+  def approve
+    pet = Pet.find(params[:pet_id])
+    pet.status = "pending"
+    pet.save
+    redirect_to "/pets/#{params[:pet_id]}"
+  end
+
   private
 
   def application_params
