@@ -7,5 +7,7 @@
 <%= @application.description %>
 
 <% @application.pets.each do |pet| %>
-  <%= link_to pet.name, "/pets/#{pet.id}"%>
+  <section id="pet-<%= pet.id %>">
+    <%= link_to pet.name, "/pets/#{pet.id}"%>
+  </section>
 <% end %>
