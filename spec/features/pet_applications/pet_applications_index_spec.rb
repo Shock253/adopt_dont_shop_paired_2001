@@ -23,47 +23,43 @@ RSpec.describe "Pet applications index page" do
                         description: "Great dog.",
                         status: "Adoptable")
 
-    visit "/pets/#{@pet_1.id}"
-    click_button('Add to Favorites')
-    visit "/applications/new"
+    @application_1 = Application.create(
+                    name: "John Wick",
+                    address: "450 S. Cherry St.",
+                    city: "Aldoran",
+                    state: "CO",
+                    zip: "19999",
+                    phone_number: "8007891234",
+                    description: "I have a big yard")
 
-    within("#pet-#{@pet_1.id}") do
-      check "pet_ids_"
-    end
+    @application_2 = Application.create(
+                    name: "Luke Skywalker",
+                    address: "450 S. Cherry St.",
+                    city: "Aldoran",
+                    state: "CO",
+                    zip: "19999",
+                    phone_number: "8007891234",
+                    description: "I have a big yard")
 
-    fill_in "name", with: "John Wick"
-    fill_in "address", with: "450 S. Cherry St."
-    fill_in "city", with: "Aldoran"
-    fill_in "state", with: "CO"
-    fill_in "zip", with: "19999"
-    fill_in "phone_number", with: "8007891234"
-    fill_in "description", with: "I have a big yard"
-    click_button "Submit Application"
-
-    visit "/pets/#{@pet_1.id}"
-    click_button('Add to Favorites')
-    visit "/applications/new"
-
-    within("#pet-#{@pet_1.id}") do
-      check "pet_ids_"
-    end
-
-    fill_in "name", with: "Luke Skywalker"
-    fill_in "address", with: "450 S. Cherry St."
-    fill_in "city", with: "Aldoran"
-    fill_in "state", with: "CO"
-    fill_in "zip", with: "19999"
-    fill_in "phone_number", with: "8007891234"
-    fill_in "description", with: "I have a big yard"
-    click_button "Submit Application"
+    ApplicationPet.create(application: @application_1, pet: @pet_1)
+    ApplicationPet.create(application: @application_2, pet: @pet_1)
   end
 
   it "displays a list of all applicants for that pet" do
     visit "/pets/#{@pet_1.id}"
     click_link('View All Applications for This Pet')
     expect(page).to have_current_path("/pets/#{@pet_1.id}/applications")
+    expect(page).to have_link("John Wick")
+    expect(page).to have_link("Luke Skywalker")
+
+    click_link("John Wick")
+    expect(page).to have_current_path "/applications/#{@application_1.id}"
     expect(page).to have_content("John Wick")
-    expect(page).to have_content("Luke Skywalker") #need to be links
+
+    visit "/pets/#{@pet_1.id}/applications"
+    click_link("Luke Skywalker")
+    expect(page).to have_current_path "/applications/#{@application_2.id}"
+    expect(page).to have_content("Luke Skywalker")
   end
 
   it "displays a no applications for this pet message" do
