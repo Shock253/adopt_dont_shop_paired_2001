@@ -69,7 +69,7 @@ RSpec.describe "Application show page" do
     visit "/applications/#{@application.id}"
 
     within "#pet-#{@pet_1.id}" do
-      click_link "Approve"
+      click_link "Approve #{@pet_1.name} for Adoption"
     end
 
     expect(page).to have_current_path("/pets/#{@pet_1.id}")
@@ -77,14 +77,27 @@ RSpec.describe "Application show page" do
     expect(page).to have_content("Pending")
     expect(page).to have_content("John Wick")
   end
-end
 
-# User Story 22, Approving an Application
-#
-# As a visitor
-# When I visit an application's show page
-# For every pet that the application is for, I see a link to approve the application for that specific pet
-# When I click on a link to approve the application for one particular pet
-# I'm taken back to that pet's show page
-# And I see that the pets status has changed to 'pending'
-# And I see text on the page that says who this pet is on hold for (Ex: "On hold for John Smith", given John Smith is the name on the application that was just accepted)
+  it "can approve all pets in an application" do
+    visit "/applications/#{@application.id}"
+
+    within "#check-box-#{@pet_1.id}" do
+      check "pet_ids_"
+    end
+
+    within "#check-box-#{@pet_2.id}" do
+      check "pet_ids_"
+    end
+
+    click_button "Approve Pets"
+    expect(page).to have_current_path("/pets")
+
+    visit "/pets/#{@pet_1.id}"
+    expect(page).to have_content("Pending")
+    expect(page).to have_content("John Wick")
+
+    visit "/pets/#{@pet_2.id}"
+    expect(page).to have_content("Pending")
+    expect(page).to have_content("John Wick")
+  end
+end
