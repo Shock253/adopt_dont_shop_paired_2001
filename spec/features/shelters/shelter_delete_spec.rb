@@ -40,7 +40,9 @@ RSpec.describe "Shelter delete functionality", type: :feature do
                  phone_number: "8007891234",
                  description: "I have a big yard")
 
-  ApplicationPet.create(application: application, pet: pet_1)
+  application_pet = ApplicationPet.create(application: application, pet: pet_1)
+  application_pet.status = "Approved"
+  application_pet.save
 
   visit "/shelters/#{shelter_1.id}"
   expect(page).to have_link('Delete Shelter')
