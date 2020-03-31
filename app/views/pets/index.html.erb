@@ -4,6 +4,7 @@
   <li><%= link_to "Pets Pending Adoption", "/pets?adoptable=false" %></li>
 </ul>
 <% @pets.each do |pet| %>
+  <section id="pet-<%= pet.id %>">
   <div class="gallery">
     <img src=<%= pet.image %> />
     <div class="desc">
@@ -17,4 +18,5 @@
       </ul>
     </div>
   </div>
+  </section>
 <% end%>

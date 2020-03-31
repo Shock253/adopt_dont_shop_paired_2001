@@ -14,6 +14,7 @@
       <li><%= link_to "All Shelters", "/shelters" %></li>
       <li><%= link_to "Favorite Pets: #{favorite_pets.total_count}", "/favorites" %></li>
     </ul>
+
     <% flash.each do |type, message| %>
       <p><%= message %></p>
     <% end %>

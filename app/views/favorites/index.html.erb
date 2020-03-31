@@ -2,7 +2,10 @@
 <% if @pets == [] %>
   <h1>No pets are currently favorited!</h1>
 <% else %>
-<h2><%= link_to 'Remove All Favorites', "/favorites", method: :delete %></h2>
+<ul class="menu">
+  <li><%= link_to 'Remove All Favorites', "/favorites", method: :delete %></li>
+  <li><%= link_to 'Apply to Adopt', "/applications/new", method: :get %></li>
+</ul>
   <% @pets.each do |pet| %>
     <section id="pet-<%= pet.id %>">
       <div class="gallery">
@@ -19,3 +22,11 @@
     </section>
   <% end%>
 <% end %>
+<section id="pets-with-applications">
+  <h1>Pets You Applied For</h1>
+  <% @pending_pets.each do |pet| %>
+    <section id="pet-<%= pet.id %>">
+    <%= link_to pet.name, "/pets/#{pet.id}" %>
+    </section>
+  <% end %>
+</section>

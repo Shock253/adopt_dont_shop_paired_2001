@@ -12,12 +12,16 @@
 <% else %>
   <%= button_to 'Remove from Favorites', "/favorites/#{@pet.id}", method: :delete %>
 <% end %>
+<% if @pet.application_approved? %>
+  <h2>On hold for <%= @pet.find_approved_application.name %></h2>
+<% end %>
 <ul>
   <li><%= @pet.age %></li>
   <li><%= @pet.sex %></li>
   <li><%= @pet.description %></li>
   <li><%= @pet.status %></li>
 </ul>
+<%= link_to 'View All Applications for This Pet', "/pets/#{@pet.id}/applications" %>
 <p><img src=<%= @pet.image %> /></p>
 
 <ul class="menu">

@@ -1,0 +1,16 @@
+<%= form_tag "/applications", method: :post do %>
+
+  <% @pets.each do |pet| %>
+    <span id="pet-<%= pet.id%>"
+    <%= label_tag pet.name %><%= check_box_tag "pet_ids[]", pet.id %>
+    </span>
+  <% end %>
+  <p><%= label_tag :name, "Name:" %> <%= text_field_tag(:name) %></p>
+  <p><%= label_tag :address, "Address:" %> <%= text_field_tag(:address) %></p>
+  <p><%= label_tag :city, "City:"%> <%= text_field_tag(:city) %></p>
+  <p><%= label_tag :state, "State:" %> <%= text_field_tag(:state) %></p>
+  <p><%= label_tag :zip, "Zip:" %> <%= text_field_tag(:zip) %></p>
+  <p><%= label_tag :phone_number, "Phone Number:" %> <%= text_field_tag(:phone_number) %></p>
+  <p><%= label_tag :description, "Description:" %> <%= text_field_tag(:description) %></p>
+  <%= submit_tag 'Submit Application' %>
+<% end %>

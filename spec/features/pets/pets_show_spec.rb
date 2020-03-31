@@ -142,17 +142,59 @@ RSpec.describe "pet show page", type: :feature do
        expect(page).to have_content("Favorite Pets: 0")
      end
   end
-end
 
-# User Story 12, Can't Favorite a Pet More Than Once
-#
-# As a visitor
-# After I've favorited a pet
-# When I visit that pet's show page
-# I no longer see a link to favorite that pet
-# But I see a link to remove that pet from my favorites
-# When I click that link
-# A delete request is sent to "/favorites/:pet_id"
-# And I'm redirected back to that pets show page where I can see a flash message indicating that the pet was removed from my favorites
-# And I can now see a link to favorite that pet
-# And I also see that my favorites indicator has decremented by 1
+  it "can link to applications index page" do
+    shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                              address: "500 Invisible St.",
+                              city: "Denver",
+                              state: "Colorado",
+                              zip: "80201")
+
+    pet_1 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                    name: 'Rover',
+                    age: 3,
+                    sex: "Male",
+                    shelter: shelter_1,
+                    description: "He's a biter.",
+                    status: "Pending")
+
+    visit "/pets/#{pet_1.id}"
+    click_button('Add to Favorites')
+    visit "/applications/new"
+
+    within("#pet-#{pet_1.id}") do
+      check "pet_ids_"
+    end
+
+    fill_in "name", with: "John Wick"
+    fill_in "address", with: "450 S. Cherry St."
+    fill_in "city", with: "Aldoran"
+    fill_in "state", with: "CO"
+    fill_in "zip", with: "19999"
+    fill_in "phone_number", with: "8007891234"
+    fill_in "description", with: "I have a big yard"
+    click_button "Submit Application"
+
+    visit "/pets/#{pet_1.id}"
+    click_button('Add to Favorites')
+    visit "/applications/new"
+
+    within("#pet-#{pet_1.id}") do
+      check "pet_ids_"
+    end
+
+    fill_in "name", with: "Luke Skywalker"
+    fill_in "address", with: "450 S. Cherry St."
+    fill_in "city", with: "Aldoran"
+    fill_in "state", with: "CO"
+    fill_in "zip", with: "19999"
+    fill_in "phone_number", with: "8007891234"
+    fill_in "description", with: "I have a big yard"
+    click_button "Submit Application"
+
+    visit "/pets/#{pet_1.id}"
+    expect(page).to have_link('View All Applications for This Pet')
+    click_link('View All Applications for This Pet')
+    expect(page).to have_current_path("/pets/#{pet_1.id}/applications")
+  end
+end
