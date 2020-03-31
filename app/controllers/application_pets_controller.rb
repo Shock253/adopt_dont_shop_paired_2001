@@ -34,15 +34,20 @@ class ApplicationPetsController < ApplicationController
   end
 
   def approve_pets
-    pets = Pet.find(params[:pet_ids])
-    pets.each do |pet|
-      pet.status = "Pending"
-      application_pet = pet.find_application_pet(params[:application_id])
-      application_pet.status = "Approved"
-      application_pet.save
-      pet.save
+    if params[:pet_ids].nil?
+      flash[:notice] = "There are currently no pets selected for approval to adopt!"
+      redirect_to "/applications/#{params[:application_id]}"
+    else
+      pets = Pet.find(params[:pet_ids])
+      pets.each do |pet|
+        pet.status = "Pending"
+        application_pet = pet.find_application_pet(params[:application_id])
+        application_pet.status = "Approved"
+        application_pet.save
+        pet.save
+      end
+      redirect_to '/pets'
     end
-    redirect_to '/pets'
   end
 
   private
