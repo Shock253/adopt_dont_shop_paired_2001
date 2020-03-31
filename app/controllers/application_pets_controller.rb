@@ -33,6 +33,18 @@ class ApplicationPetsController < ApplicationController
     redirect_to "/pets/#{params[:pet_id]}"
   end
 
+  def approve_pets
+    pets = Pet.find(params[:pet_ids])
+    pets.each do |pet|
+      pet.status = "Pending"
+      application_pet = pet.find_application_pet(params[:application_id])
+      application_pet.status = "Approved"
+      application_pet.save
+      pet.save
+    end
+    redirect_to '/pets'
+  end
+
   private
 
   def application_params
