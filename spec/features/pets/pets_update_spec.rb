@@ -39,4 +39,31 @@ RSpec.describe "pets show page", type: :feature do
     expect(page).to have_content("Pending")
     expect(page).to have_css("img[src*='https://media1.fdncms.com/sevendaysvt/imager/u/blog/28218452/animalissue2-1-43f2a278bdb53e2e.jpg?cb=1565792097']")
   end
+
+  it "displays flash message for incomplete information in update form" do
+    shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                               address: "500 Invisible St.",
+                               city: "Denver",
+                               state: "Colorado",
+                               zip: "80201")
+
+    pet_1 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                    name: 'Rover',
+                    age: 3,
+                    sex: "Male",
+                    shelter: shelter_1,
+                    description: "He's a biter.",
+                    status: "Pending")
+    visit "/pets/#{pet_1.id}"
+
+    click_link 'Update Pet'
+    fill_in "name", with: ""
+    fill_in "age", with: "11"
+    fill_in "sex", with: "Female"
+    fill_in "description", with: "Cute hedgehog"
+    fill_in "image", with: "https://media1.fdncms.com/sevendaysvt/imager/u/blog/28218452/animalissue2-1-43f2a278bdb53e2e.jpg?cb=1565792097"
+    click_button('Update Pet')
+    expect(page).to have_current_path("/pets/#{pet_1.id}/edit")
+    expect(page).to have_content("Required fields are missing, please enter all information required.")
+  end
 end
