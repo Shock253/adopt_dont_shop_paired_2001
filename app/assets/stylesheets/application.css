@@ -53,7 +53,7 @@
 .menu li {
   display: inline-block;
   font-size: 20px;
-  padding: 20px
+  padding: 20px;
 }
 
 div.shelter {
@@ -122,4 +122,20 @@ a:active {
 
 .shelter_link {
   text-align: center
+}
+
+#map {
+  float: left;
+  width: 700px;
+  height: 500px;
+}
+
+#pet-show {
+  float: center;
+  text-align: center;
+}
+
+ul.pet-show {
+  list-style-type: none;
+  text-align: center;
 }

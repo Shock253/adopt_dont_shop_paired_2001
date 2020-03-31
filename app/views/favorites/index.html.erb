@@ -23,10 +23,14 @@
   <% end%>
 <% end %>
 <section id="pets-with-applications">
-  <h1>Pets You Applied For</h1>
-  <% @pending_pets.each do |pet| %>
-    <section id="pet-<%= pet.id %>">
-    <%= link_to pet.name, "/pets/#{pet.id}" %>
-    </section>
-  <% end %>
+  <div id="map">
+    <div id="wrapper">
+      <h2>Pets You Applied For</h2>
+      <% @pending_pets.each do |pet| %>
+        <section id="pet-<%= pet.id %>">
+        <%= link_to pet.name, "/pets/#{pet.id}" %>
+        </section>
+      <% end %>
+      </div>
+    </div>
 </section>
