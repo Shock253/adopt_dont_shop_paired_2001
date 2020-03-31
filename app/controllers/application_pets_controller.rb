@@ -25,7 +25,7 @@ class ApplicationPetsController < ApplicationController
 
   def approve
     pet = Pet.find(params[:pet_id])
-    pet.status = "Pending"
+    pet.status = "Pending Adoption"
     application_pet = pet.find_application_pet(params[:application_id])
     application_pet.status = "Approved"
     application_pet.save
@@ -40,13 +40,23 @@ class ApplicationPetsController < ApplicationController
     else
       pets = Pet.find(params[:pet_ids])
       pets.each do |pet|
-        pet.status = "Pending"
+        pet.status = "Pending Adoption"
         application_pet = pet.find_application_pet(params[:application_id])
         application_pet.status = "Approved"
         application_pet.save
         pet.save
       end
       redirect_to '/pets'
+    end
+
+    def delete
+      pet = Pet.find(params[:pet_id])
+      pet.status = "Adoptable"
+      application_pet = pet.find_application_pet(params[:application_id])
+      application_pet.status = "Pending Approval"
+      pet.save
+      application_pet.save
+      redirect_to "/applications/#{params[:application_id]}"
     end
   end
 

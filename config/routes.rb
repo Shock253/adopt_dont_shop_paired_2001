@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   get '/pets/:pet_id/applications', to: 'pets#applications'
   post '/pets/:pet_id/applications/:application_id', to: 'application_pets#approve'
   patch '/pets/applications/:application_id', to: 'application_pets#approve_pets'
+  delete '/pets/:pet_id/applications/:application_id', to: 'application_pets#delete'
 
   get '/applications/:id', to: 'application_pets#show'
 end
