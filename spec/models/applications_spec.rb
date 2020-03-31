@@ -15,4 +15,43 @@ RSpec.describe Application, type: :model do
     it { should have_many :application_pets }
     it { should have_many(:pets).through(:application_pets) }
   end
+
+  describe "#pending_approval?" do
+    it "can tell if it is pending approval" do
+      shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                                address: "500 Invisible St.",
+                                city: "Denver",
+                                state: "Colorado",
+                                zip: "80201")
+
+      pet_1 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                      name: 'Rover',
+                      age: 3,
+                      sex: "Male",
+                      shelter: shelter_1,
+                      description: "He's a biter.",
+                      status: "adoptable")
+
+      pet_2 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                      name: 'Rover',
+                      age: 3,
+                      sex: "Male",
+                      shelter: shelter_1,
+                      description: "He's a biter.",
+                      status: "adoptable")
+      application = Application.create(
+                      name: "John Wick",
+                      address: "450 S. Cherry St.",
+                      city: "Aldoran",
+                      state: "CO",
+                      zip: "19999",
+                      phone_number: "8007891234",
+                      description: "I have a big yard")
+
+      ApplicationPet.create(application: application, pet: pet_1)
+      ApplicationPet.create(application: application, pet: pet_2)
+
+      expect(application.pending_approval?(pet_1.id)).to eq(true)
+    end
+  end
 end
