@@ -61,8 +61,6 @@ RSpec.describe "Application show page" do
       click_link "George"
       expect(page).to have_current_path("/pets/#{@pet_2.id}")
     end
-    visit "/applications/#{@application.id}"
-
   end
 
   it "can approve pet applications" do
@@ -74,7 +72,7 @@ RSpec.describe "Application show page" do
 
     expect(page).to have_current_path("/pets/#{@pet_1.id}")
 
-    expect(page).to have_content("Pending")
+    expect(page).to have_content("Pending Adoption")
     expect(page).to have_content("John Wick")
   end
 
@@ -93,11 +91,11 @@ RSpec.describe "Application show page" do
     expect(page).to have_current_path("/pets")
 
     visit "/pets/#{@pet_1.id}"
-    expect(page).to have_content("Pending")
+    expect(page).to have_content("Pending Adoption")
     expect(page).to have_content("John Wick")
 
     visit "/pets/#{@pet_2.id}"
-    expect(page).to have_content("Pending")
+    expect(page).to have_content("Pending Adoption")
     expect(page).to have_content("John Wick")
   end
 
@@ -128,5 +126,27 @@ RSpec.describe "Application show page" do
     click_button "Approve Pets"
     expect(page).to have_current_path("/applications/#{application_2.id}")
     expect(page).to have_content("There are currently no pets selected for approval to adopt!")
+  end
+
+  it "can revoke applications for a pet that has been approved" do
+    visit "/applications/#{@application.id}"
+    within "#pet-#{@pet_1.id}" do
+      click_link "Approve #{@pet_1.name} for Adoption"
+    end
+
+    visit "/applications/#{@application.id}"
+    within "#pet-#{@pet_1.id}" do
+      click_link "Revoke #{@pet_1.name}'s Application"
+    end
+
+    expect(page).to have_current_path("/applications/#{@application.id}")
+
+    within "#pet-#{@pet_1.id}" do
+      expect(page).to have_link("Approve #{@pet_1.name} for Adoption")
+    end
+
+    visit "/pets/#{@pet_1.id}"
+    expect(page).to_not have_content("Pending Adoption")
+    expect(page).to have_content("Adoptable")
   end
 end
