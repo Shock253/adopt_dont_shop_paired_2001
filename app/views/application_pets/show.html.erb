@@ -1,14 +1,30 @@
-<%= @application.name %>
-<%= @application.address %>
-<%= @application.city %>
-<%= @application.state %>
-<%= @application.zip %>
-<%= @application.phone_number %>
-<%= @application.description %>
+<h1 class="title">Application Information</h1>
+
+<ul>
+<li><%= @application.name %></li>
+<li><%= @application.address %></li>
+<li><%= @application.city %></li>
+<li><%= @application.state %></li>
+<li><%= @application.zip %></li>
+<li><%= @application.phone_number %></li>
+<li><%= @application.description %></li>
+</ul>
+
+<h2>Pets</h2>
 
 <% @application.pets.each do |pet| %>
   <section id="pet-<%= pet.id %>">
     <%= link_to pet.name, "/pets/#{pet.id}"%>
-    <%= link_to "Approve", "/pets/#{pet.id}/applications/#{@application.id}", method: :post %>
+    <%= link_to "Approve #{pet.name} for Adoption", "/pets/#{pet.id}/applications/#{@application.id}", method: :post %>
   </section>
+<% end %>
+
+<h2>Approve Multiple Pets</h2>
+<%= form_tag "/pets/applications/#{@application.id}", method: :patch do %>
+  <% @application.pets.each do |pet| %>
+    <span id="check-box-<%= pet.id%>"
+    <%= label_tag pet.name %><%= check_box_tag "pet_ids[]", pet.id %>
+    </span>
+  <% end %>
+  <%= submit_tag "Approve Pets" %>
 <% end %>
