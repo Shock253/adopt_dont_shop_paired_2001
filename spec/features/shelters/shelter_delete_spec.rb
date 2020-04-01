@@ -15,14 +15,21 @@ RSpec.describe "Shelter delete functionality", type: :feature do
                   description: "He's a biter.",
                   status: "adoptable")
 
+    review1 = shelter_1.shelter_reviews.create!(title: "Horrible Shelter",
+                                    rating: "1/5",
+                                    content: "They stole my dog!",
+                                    image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
+
     visit "/shelters/#{shelter_1.id}"
     expect(page).to have_link('Delete Shelter')
 
     click_link('Delete Shelter')
     expect(page).to have_current_path('/shelters')
     expect(page).to_not have_content("Denver Animal Shelter")
-    visit "/pets"
-    expect(page).to_not have_css("#pet-#{pet_1.id}")
+
+    expect(Pet.all.length).to eq(0)
+    expect(ShelterReview.all.length).to eq(0)
+
   end
 
   it "when I try to delete a shelter with pending adoptions,
