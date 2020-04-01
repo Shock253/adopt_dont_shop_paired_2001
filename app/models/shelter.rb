@@ -16,6 +16,14 @@ class Shelter < ApplicationRecord
     pending
   end
 
+  def average_rating
+    shelter_reviews.average(:rating)
+  end
+
+  def current_applications
+
+  end
+
   def self.sort_alphabetical
     Shelter.order("name")
   end

@@ -33,6 +33,30 @@ RSpec.describe Shelter, type: :model do
       expect(shelter_1.pet_count).to eq(1)
     end
 
+    it ".average_rating" do
+      shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                                 address: "500 Invisible St.",
+                                 city: "Denver",
+                                 state: "Colorado",
+                                 zip: "80201")
+
+      review1 = shelter_1.shelter_reviews.create!(title: "Horrible Shelter",
+                                     rating: "1/5",
+                                     content: "They stole my dog!",
+                                     image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
+
+      review2 = shelter_1.shelter_reviews.create!(title: "Great Experience!",
+                                     rating: "3/5",
+                                     content: "Grabbed a new dog and ran away with it!",
+                                     image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
+
+      review3 = shelter_1.shelter_reviews.create!(title: "Horrible Shelter",
+                                     rating: "1/5",
+                                     content: "They stole my dog!")
+
+      expect(shelter_1.average_rating.to_f).to eq(5.0/3.0)
+    end
+
     it ".has_pending_adoptions?" do
       shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
                                 address: "500 Invisible St.",
