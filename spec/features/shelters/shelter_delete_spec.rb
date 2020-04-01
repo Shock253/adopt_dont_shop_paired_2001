@@ -7,12 +7,22 @@ RSpec.describe "Shelter delete functionality", type: :feature do
                                city: "Denver",
                                state: "Colorado",
                                zip: "80201")
+
+   pet_1 = shelter_1.pets.create(image: 'app/assets/images/border_collie.jpg',
+                  name: 'Rover',
+                  age: 3,
+                  sex: "Male",
+                  description: "He's a biter.",
+                  status: "adoptable")
+
     visit "/shelters/#{shelter_1.id}"
     expect(page).to have_link('Delete Shelter')
 
     click_link('Delete Shelter')
     expect(page).to have_current_path('/shelters')
     expect(page).to_not have_content("Denver Animal Shelter")
+    visit "/pets"
+    expect(page).to_not have_css("#pet-#{pet_1.id}")
   end
 
   it "when I try to delete a shelter with pending adoptions,
