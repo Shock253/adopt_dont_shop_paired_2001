@@ -1,5 +1,5 @@
 <h1 class="title">Application Information</h1>
-<ul>
+<ul class="pet-show">
   <li><%= @application.name %></li>
   <li><%= @application.address %></li>
   <li><%= @application.city %></li>
@@ -8,28 +8,36 @@
   <li><%= @application.phone_number %></li>
   <li><%= @application.description %></li>
 </ul>
-<h2>Pets</h2>
-<% @application.pets.each do |pet| %>
-  <section id="pet-<%= pet.id %>">
-    <%= link_to pet.name, "/pets/#{pet.id}"%>
-    <% if pet.application_approved? %>
-      <p><%= pet.name %> is currently pending adoption.</p>
-      <% if !(@application.pending_approval?(pet.id)) %>
-        <p><%= link_to "Revoke #{pet.name}'s Application", "/pets/#{pet.id}/applications/#{@application.id}", method: :delete %></p>
-      <% end %>
-    <% else %>
-      <%= link_to "Approve #{pet.name} for Adoption", "/pets/#{pet.id}/applications/#{@application.id}", method: :post %>
-    <% end %>
-  </section>
-<% end %>
-<h2>Approve Multiple Pets</h2>
-<%= form_tag "/pets/applications/#{@application.id}", method: :patch do %>
+<hr>
+<h2 class="pet-application-title">Pets</h2>
+<div class="application-show">
   <% @application.pets.each do |pet| %>
-    <% if !(pet.application_approved?) %>
-      <span id="check-box-<%= pet.id%>"
-      <%= label_tag pet.name %><%= check_box_tag "pet_ids[]", pet.id %>
-      </span>
-    <% end %>
+      <section id="pet-<%= pet.id %>">
+        <div class="application-pet">
+          <h3 align="center"><%= link_to pet.name, "/pets/#{pet.id}"%></h1>
+          <% if pet.application_approved? %>
+            <p><%= pet.name %> is currently pending adoption.</p>
+            <% if !(@application.pending_approval?(pet.id)) %>
+              <p><%= link_to "Revoke #{pet.name}'s Application", "/pets/#{pet.id}/applications/#{@application.id}", method: :delete %></p>
+            <% end %>
+          <% else %>
+            <%= link_to "Approve #{pet.name} for Adoption", "/pets/#{pet.id}/applications/#{@application.id}", method: :post %>
+          <% end %>
+        </div>
+      </section>
   <% end %>
-  <%= submit_tag "Approve Pets" %>
-<% end %>
+</div>
+<hr>
+<h2 class="pet-application-title">Approve Multiple Pets</h2>
+<div class="application-approve">
+  <%= form_tag "/pets/applications/#{@application.id}", method: :patch do %>
+    <% @application.pets.each do |pet| %>
+      <% if !(pet.application_approved?) %>
+        <span id="check-box-<%= pet.id%>">
+          <%= label_tag pet.name %><%= check_box_tag "pet_ids[]", pet.id %>
+        </span>
+      <% end %>
+    <% end %>
+    <%= submit_tag "Approve Pets" %>
+  <% end %>
+</div>
