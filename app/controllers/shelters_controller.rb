@@ -43,7 +43,7 @@ class SheltersController < ApplicationController
       redirect_to '/shelters'
     else
       flash[:notice] = "Could not delete shelter, shelter has pending adoptions"
-      redirect_to "/shelters/#{params[:id]}"
+      redirect_back fallback_location: "/shelters"
     end
   end
 
