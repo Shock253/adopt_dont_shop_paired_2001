@@ -19,11 +19,6 @@
     background-color: slategrey
 }
 
- img {
-     width:  400px;
-     height: 400px;
- }
-
  .title {
   text-align: center;
   border: 3px solid green;
@@ -97,6 +92,24 @@ div.link {
   background-color:#cf8;
 }
 
+.wrapper {
+  width: 100%;
+  display: inline-block;
+}
+
+div.review {
+  width: 90%;
+  background-color: white;
+  padding-left: 15px;
+  align: center;
+  margin: 40px;
+}
+
+div.review img {
+  display: inline-block;
+  width: 400px;
+}
+
 a:link {
   color: black;
   text-decoration: none;
@@ -137,5 +150,53 @@ a:active {
 
 ul.pet-show {
   list-style-type: none;
+  text-align: center;
+}
+
+#review-title {
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  border: 1px solid green;
+  background-color: hotpink;
+  padding: 5px;
+}
+
+#favorite-application-title {
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  border: 1px solid green;
+  background-color: tomato;
+  padding: 5px;
+}
+
+.pet-application-title {
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  border: 1px solid green;
+  background-color: tomato;
+  padding: 5px;
+}
+
+div.application-show {
+  padding-left: 15px
+}
+
+div.application-approve {
+  text-align: center;
+}
+
+div.application-pet {
+  text-align: center;
+  display: inline-block;
+  width: 400px;
+  background-color: white;
+  padding-bottom: 20px
+}
+
+div.application-show {
+  padding: 30px;
   text-align: center;
 }
