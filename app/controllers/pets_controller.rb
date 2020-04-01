@@ -23,7 +23,7 @@ class PetsController < ApplicationController
     if pet.save
       redirect_to "/shelters/#{shelter.id}/pets"
     else
-      flash[:notice] = "Required fields are missing, please enter all information required."
+      flash[:notice] = "Required fields are missing, #{pet.errors.full_messages.to_sentence}.}"
       redirect_to "/shelters/#{shelter.id}/pets/new"
     end
   end
@@ -38,7 +38,7 @@ class PetsController < ApplicationController
     if pet.save
       redirect_to "/pets/#{pet.id}"
     else
-      flash[:notice] = "Required fields are missing, please enter all information required."
+      flash[:notice] = "Required fields are missing, #{pet.errors.full_messages.to_sentence}."
       redirect_to "/pets/#{pet.id}/edit"
     end
   end
