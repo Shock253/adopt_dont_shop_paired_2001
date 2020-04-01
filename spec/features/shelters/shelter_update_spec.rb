@@ -23,4 +23,23 @@ RSpec.describe "shelter update functionality" do
     expect(page).to have_content("Colorado")
     expect(page).to have_content("90000")
   end
+
+  it "cannot update shelters without all required information" do
+    shelter_1 = Shelter.create(name: "Denver Animal Shelter",
+                               address: "500 Invisible St.",
+                               city: "Denver",
+                               state: "Colorado",
+                               zip: "80201")
+    visit "/shelters/#{shelter_1.id}"
+    click_link("Update Shelter")
+
+    fill_in "name", with: ""
+    fill_in "Address", with: "99 Thorn Rd."
+    fill_in "City", with: "Fort Collins"
+    fill_in "State", with: "Colorado"
+    fill_in "Zip", with: "90000"
+    click_button('Update Shelter')
+    expect(page).to have_current_path("/shelters/#{shelter_1.id}/edit")
+    expect(page).to have_content("Name can't be blank")
+  end
 end
