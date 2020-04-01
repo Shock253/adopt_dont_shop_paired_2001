@@ -72,7 +72,7 @@ RSpec.describe Shelter, type: :model do
                      description: "He's a biter.",
                      status: "adoptable")
 
-      application = Application.create(
+      application = Application.create!(
                      name: "John Wick",
                      address: "450 S. Cherry St.",
                      city: "Aldoran",
@@ -80,8 +80,16 @@ RSpec.describe Shelter, type: :model do
                      zip: "19999",
                      phone_number: "8007891234",
                      description: "I have a big yard")
+                     pet_2 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                                    name: 'Rover',
+                                    age: 3,
+                                    sex: "Male",
+                                    shelter: shelter_1,
+                                    description: "He's a biter.",
+                                    status: "Pending")
 
-      ApplicationPet.create(application: application, pet: pet_1, status: "Approved")
+      ApplicationPet.create!(application_id: application.id, pet_id: pet_1.id, status: "Approved")
+      ApplicationPet.create!(application_id: application.id, pet_id: pet_2.id, status: "Approved")
 
       expect(shelter_1.count_current_applications).to eq(1)
     end
