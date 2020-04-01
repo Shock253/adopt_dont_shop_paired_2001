@@ -62,6 +62,6 @@ RSpec.describe "pets create page", type: :feature do
     click_button("Create Pet")
 
     expect(page).to have_current_path("/shelters/#{shelter_1.id}/pets/new")
-    expect(page).to have_content("Required fields are missing, please enter all information required.")
+    expect(page).to have_content("Required fields are missing, Name can't be blank and Age can't be blank.")
   end
 end

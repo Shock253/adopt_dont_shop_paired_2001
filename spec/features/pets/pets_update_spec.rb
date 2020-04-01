@@ -64,6 +64,6 @@ RSpec.describe "pets show page", type: :feature do
     fill_in "image", with: "https://media1.fdncms.com/sevendaysvt/imager/u/blog/28218452/animalissue2-1-43f2a278bdb53e2e.jpg?cb=1565792097"
     click_button('Update Pet')
     expect(page).to have_current_path("/pets/#{pet_1.id}/edit")
-    expect(page).to have_content("Required fields are missing, please enter all information required.")
+    expect(page).to have_content("Required fields are missing, Name can't be blank.")
   end
 end
