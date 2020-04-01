@@ -48,16 +48,16 @@ class ApplicationPetsController < ApplicationController
       end
       redirect_to '/pets'
     end
+  end
 
-    def delete
-      pet = Pet.find(params[:pet_id])
-      pet.status = "Adoptable"
-      application_pet = pet.find_application_pet(params[:application_id])
-      application_pet.status = "Pending Approval"
-      pet.save
-      application_pet.save
-      redirect_to "/applications/#{params[:application_id]}"
-    end
+  def delete
+    pet = Pet.find(params[:pet_id])
+    pet.status = "Adoptable"
+    application_pet = pet.find_application_pet(params[:application_id])
+    application_pet.status = "Pending Approval"
+    pet.save
+    application_pet.save
+    redirect_to "/applications/#{params[:application_id]}"
   end
 
   private

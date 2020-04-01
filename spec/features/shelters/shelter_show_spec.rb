@@ -129,4 +129,72 @@ RSpec.describe "shelter id page", type: :feature do
       click_link("Edit Review")
       expect(page).to have_current_path("/shelters/#{shelter_1.id}/reviews/#{review1.id}/edit")
   end
+
+  it "shows that shelter's statistics" do
+    shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                               address: "500 Invisible St.",
+                               city: "Denver",
+                               state: "Colorado",
+                               zip: "80201")
+
+    review1 = shelter_1.shelter_reviews.create!(title: "Horrible Shelter",
+                                   rating: "1/5",
+                                   content: "They stole my dog!",
+                                   image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
+
+    review2 = shelter_1.shelter_reviews.create!(title: "Great Experience!",
+                                   rating: "3/5",
+                                   content: "Grabbed a new dog and ran away with it!",
+                                   image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
+
+    review3 = shelter_1.shelter_reviews.create!(title: "Horrible Shelter",
+                                   rating: "1/5",
+                                   content: "They stole my dog!")
+
+    pet_1 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                   name: 'Rover',
+                   age: 3,
+                   sex: "Male",
+                   shelter: shelter_1,
+                   description: "He's a biter.",
+                   status: "Pending")
+
+    pet_2 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                   name: 'Rover',
+                   age: 3,
+                   sex: "Male",
+                   shelter: shelter_1,
+                   description: "He's a biter.",
+                   status: "Pending")
+
+    application = Application.create(
+                   name: "John Wick",
+                   address: "450 S. Cherry St.",
+                   city: "Aldoran",
+                   state: "CO",
+                   zip: "19999",
+                   phone_number: "8007891234",
+                   description: "I have a big yard")
+
+    ApplicationPet.create(application: application, pet: pet_1)
+    ApplicationPet.create(application: application, pet: pet_2)
+
+    visit "/shelters/#{shelter_1.id}"
+
+    within "#statistics" do
+      expect(page).to have_content("Pets: 2")
+      expect(page).to have_content("Average Rating: 1.7")
+      expect(page).to have_content("Current Applications: 1")
+    end
+  end
 end
+
+
+# User Story 30, Shelter Statistics
+#
+# As a visitor
+# When I visit a shelter's show page
+# I see statistics for that shelter, including:
+# - count of pets that are at that shelter
+# - average shelter review rating
+# - number of applications on file for that shelter

@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Shelter.destroy_all
 Pet.destroy_all
+ApplicationPet.destroy_all
 
 shelter_1 = Shelter.create(name: "Denver Animal Shelter",
                            address: "500 Invisible St.",
@@ -40,33 +41,33 @@ pet_2 = Pet.create(image: "https://media1.fdncms.com/sevendaysvt/imager/u/blog/2
                  sex: "Female",
                  shelter: shelter_1,
                  description: "Cute hedgehog!",
-                 status: "Pending Adoption")
+                 status: "Adoptable")
 pet_3 = Pet.create(image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/chihuahua-dog-running-across-grass-royalty-free-image-1580743445.jpg?crop=0.984xw:0.738xh;0,0.0938xh&resize=980:*',
                  name: "George",
                  age: 2,
                  sex: "Male",
                  shelter: shelter_2,
                  description: "Spunky!",
-                 status: "Pending Adoption")
+                 status: "Adoptable")
 
-pet_4 = Pet.create(image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/chihuahua-dog-running-across-grass-royalty-free-image-1580743445.jpg?crop=0.984xw:0.738xh;0,0.0938xh&resize=980:*',
-                 name: "George",
+pet_4 = Pet.create(image: "https://i.ytimg.com/vi/AdSpm574rUU/maxresdefault.jpg",
+                 name: "Leon",
                  age: 2,
                  sex: "Male",
                  shelter: shelter_2,
                  description: "Spunky!",
-                 status: "Pending Adoption")
+                 status: "Adoptable")
 
 pet_5 = Pet.create(image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/chihuahua-dog-running-across-grass-royalty-free-image-1580743445.jpg?crop=0.984xw:0.738xh;0,0.0938xh&resize=980:*',
-                 name: "George",
+                 name: "Obi-Wan",
                  age: 2,
                  sex: "Male",
                  shelter: shelter_2,
                  description: "Spunky!",
-                 status: "Pending Adoption")
+                 status: "Adoptable")
 
 pet_6 = Pet.create(image: 'https://i.etsystatic.com/6800741/r/il/624c21/1191091098/il_fullxfull.1191091098_i1jl.jpg',
-                 name: 'Rover',
+                 name: 'Jerry',
                  age: 3,
                  sex: "Male",
                  shelter: shelter_2,

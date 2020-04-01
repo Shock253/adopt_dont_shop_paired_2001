@@ -7,6 +7,23 @@ class Shelter < ApplicationRecord
     self.pets.count
   end
 
+  def has_pending_adoptions?
+    pending = self.pets.any? do |pet|
+      pet.application_pets.any? do |application_pet|
+        application_pet.status == "Approved"
+      end
+    end
+    pending
+  end
+
+  def average_rating
+    shelter_reviews.average(:rating)
+  end
+
+  def count_current_applications
+    pets.joins(:applications).select('applications').distinct.count
+  end
+
   def self.sort_alphabetical
     Shelter.order("name")
   end
