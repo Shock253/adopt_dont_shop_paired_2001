@@ -7,6 +7,14 @@
     <p><%= @shelter.zip %></p>
   </ul>
 </div>
+
+<section id="statistics">
+  <%= "Pets: #{@shelter.pet_count}" %>
+  <% if @shelter.shelter_reviews.length > 0 %>
+    <%= "Average Rating: #{@shelter.average_rating.round(1)}" %>
+  <% end %>
+  <%= "Current Applications: #{@shelter.count_current_applications}" %>
+</section>
 <ul class="menu">
   <li><%= link_to "Shelter Pets", "/shelters/#{@shelter.id}/pets" %></li>
   <li><%= link_to 'Update Shelter', "/shelters/#{@shelter.id}/edit" %></li>
@@ -16,7 +24,7 @@
 <% @shelter.shelter_reviews.each do |review| %>
   <section id="review-<%= review.id %>">
     <h1><%= review.title %></h1>
-    <p><%= review.rating %><%= review.content %></p>
+    <p><%= "#{review.rating}/5" %><%= review.content %></p>
     <%= link_to "Edit Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %>
     <%= link_to "Delete Review", "/shelters/#{@shelter.id}/reviews/#{review.id}delete", method: :delete %>
     <% if !review.image.nil? && !(review.image == "") %>

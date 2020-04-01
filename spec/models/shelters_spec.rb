@@ -33,6 +33,88 @@ RSpec.describe Shelter, type: :model do
       expect(shelter_1.pet_count).to eq(1)
     end
 
+    it ".average_rating" do
+      shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                                 address: "500 Invisible St.",
+                                 city: "Denver",
+                                 state: "Colorado",
+                                 zip: "80201")
+
+      review1 = shelter_1.shelter_reviews.create!(title: "Horrible Shelter",
+                                     rating: "1/5",
+                                     content: "They stole my dog!",
+                                     image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
+
+      review2 = shelter_1.shelter_reviews.create!(title: "Great Experience!",
+                                     rating: "3/5",
+                                     content: "Grabbed a new dog and ran away with it!",
+                                     image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
+
+      review3 = shelter_1.shelter_reviews.create!(title: "Horrible Shelter",
+                                     rating: "1/5",
+                                     content: "They stole my dog!")
+
+      expect(shelter_1.average_rating.to_f).to eq(5.0/3.0)
+    end
+
+    it ".count_current_applications" do
+      shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                                address: "500 Invisible St.",
+                                city: "Denver",
+                                state: "Colorado",
+                                zip: "80201")
+
+      pet_1 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                     name: 'Rover',
+                     age: 3,
+                     sex: "Male",
+                     shelter: shelter_1,
+                     description: "He's a biter.",
+                     status: "adoptable")
+
+      application = Application.create(
+                     name: "John Wick",
+                     address: "450 S. Cherry St.",
+                     city: "Aldoran",
+                     state: "CO",
+                     zip: "19999",
+                     phone_number: "8007891234",
+                     description: "I have a big yard")
+
+      ApplicationPet.create(application: application, pet: pet_1, status: "Approved")
+
+      expect(shelter_1.count_current_applications).to eq(1)
+    end
+
+    it ".has_pending_adoptions?" do
+      shelter_1 = Shelter.create!(name: "Denver Animal Shelter",
+                                address: "500 Invisible St.",
+                                city: "Denver",
+                                state: "Colorado",
+                                zip: "80201")
+
+      pet_1 = Pet.create(image: 'app/assets/images/border_collie.jpg',
+                     name: 'Rover',
+                     age: 3,
+                     sex: "Male",
+                     shelter: shelter_1,
+                     description: "He's a biter.",
+                     status: "adoptable")
+
+      application = Application.create(
+                     name: "John Wick",
+                     address: "450 S. Cherry St.",
+                     city: "Aldoran",
+                     state: "CO",
+                     zip: "19999",
+                     phone_number: "8007891234",
+                     description: "I have a big yard")
+
+      ApplicationPet.create(application: application, pet: pet_1, status: "Approved")
+
+      expect(shelter_1.has_pending_adoptions?).to eq(true)
+    end
+
     describe "class methods", type: :model do
       it ".sort_alphabetical" do
         shelter_1 = Shelter.create(name: "Denver Animal Shelter",

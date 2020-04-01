@@ -17,8 +17,12 @@ class SheltersController < ApplicationController
 
   def create
     shelter = Shelter.create(shelter_params)
-    shelter.save
-    redirect_to '/shelters'
+    if shelter.save
+      redirect_to '/shelters'
+    else
+      flash[:notice] = shelter.errors.full_messages.to_sentence
+      redirect_to "/shelters/new"
+    end
   end
 
   def edit
@@ -33,8 +37,14 @@ class SheltersController < ApplicationController
   end
 
   def destroy
-    Shelter.destroy(params[:id])
-    redirect_to '/shelters'
+    shelter = Shelter.find(params[:id])
+    if !shelter.has_pending_adoptions?
+      Shelter.destroy(params[:id])
+      redirect_to '/shelters'
+    else
+      flash[:notice] = "Could not delete shelter, shelter has pending adoptions"
+      redirect_to "/shelters/#{params[:id]}"
+    end
   end
 
   private
