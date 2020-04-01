@@ -51,7 +51,12 @@ RSpec.describe "pets show page" do
       click_link "Approve #{pet_1.name} for Adoption"
     end
 
+
     expect(page).to have_current_path("/pets/#{pet_1.id}")
+    expect(page).to_not have_link('Delete Pet')
+    visit "/pets"
+    expect(page).to_not have_link('Delete Pet')
+    visit "/shelters/#{shelter_1.id}/pets"
     expect(page).to_not have_link('Delete Pet')
   end
 

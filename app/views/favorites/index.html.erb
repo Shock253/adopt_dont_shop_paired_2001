@@ -15,7 +15,9 @@
               <p class="pet_link"><%= link_to pet.name, "/pets/#{pet.id}" %></p>
               <ul class="menu">
                 <li><%= link_to 'Update Pet', "/pets/#{pet.id}/edit" %></li>
-                <li><%= link_to 'Delete Pet', "/pets/#{pet.id}", method: :delete %></li>
+                <% if !(pet.application_approved?) %>
+                  <li><%= link_to 'Delete Pet', "/pets/#{pet.id}", method: :delete %></li>
+                <% end %>
                 <li><%= button_to 'Remove from Favorites', "/favorites/#{pet.id}", method: :delete %></li>
               </ul>
             </div>
