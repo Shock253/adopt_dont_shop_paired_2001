@@ -20,8 +20,8 @@ class Shelter < ApplicationRecord
     shelter_reviews.average(:rating)
   end
 
-  def current_applications
-
+  def count_current_applications
+    pets.joins(:applications).select('applications').distinct.count
   end
 
   def self.sort_alphabetical
