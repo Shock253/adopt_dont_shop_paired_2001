@@ -8,6 +8,7 @@
 Shelter.destroy_all
 Pet.destroy_all
 ApplicationPet.destroy_all
+ShelterReview.destroy_all
 
 shelter_1 = Shelter.create(name: "Denver Animal Shelter",
                            address: "500 Invisible St.",
@@ -42,6 +43,7 @@ pet_2 = Pet.create(image: "https://media1.fdncms.com/sevendaysvt/imager/u/blog/2
                  shelter: shelter_1,
                  description: "Cute hedgehog!",
                  status: "Adoptable")
+
 pet_3 = Pet.create(image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/chihuahua-dog-running-across-grass-royalty-free-image-1580743445.jpg?crop=0.984xw:0.738xh;0,0.0938xh&resize=980:*',
                  name: "George",
                  age: 2,
@@ -79,3 +81,21 @@ review1 = shelter_1.shelter_reviews.create!(title: "Horrible Shelter",
                                   rating: "1/5",
                                   content: "They stole my dog!",
                                   image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
+
+review2 = shelter_1.shelter_reviews.create!(title: "Great Shelter",
+                                  rating: "4/5",
+                                  content: "They didn't steal my dog!")
+
+review1 = shelter_2.shelter_reviews.create!(title: "Horrible Shelter",
+                               rating: "1/5",
+                               content: "They stole my dog!",
+                               image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
+
+review2 = shelter_2.shelter_reviews.create!(title: "Great Experience!",
+                               rating: "3/5",
+                               content: "Grabbed a new dog and ran away with it!",
+                               image: "https://i.ytimg.com/vi/tLY-qCnnPQM/maxresdefault.jpg")
+
+review3 = shelter_2.shelter_reviews.create!(title: "Horrible Shelter",
+                               rating: "1/5",
+                               content: "They stole my dog!")
